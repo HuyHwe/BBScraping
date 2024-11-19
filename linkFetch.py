@@ -21,11 +21,11 @@ def getLinksByPrompt(searchArea, searchKeyword):
             search_box.send_keys(Keys.BACK_SPACE)
         search_box.send_keys(searchKeyword + Keys.ENTER)
 
-        time.sleep(5)
+        time.sleep(1)
         while (True):
             firstBox = driver.find_element(By.CSS_SELECTOR, "#QA0Szd > div > div > div.w6VYqd > div:nth-child(2) > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde.ecceSd > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde.ecceSd > div:nth-child(3) > div > a")
             if (firstBox != None): break
-            time.sleep(5)
+            time.sleep(2)
         print("successfully loaded the page")
         curIndex = 3
         while (True):
@@ -40,7 +40,7 @@ def getLinksByPrompt(searchArea, searchKeyword):
 
             driver.execute_script("arguments[0].scrollIntoView()", curBox)
             time.sleep(0.2)
-            print(curIndex)
+            print(f'{int((curIndex-3)/2)} results found')
         print("done searching")
         for i in range(3, curIndex, 2):
             store = driver.find_element(By.CSS_SELECTOR, f'#QA0Szd > div > div > div.w6VYqd > div:nth-child(2) > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde.ecceSd > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde.ecceSd > div:nth-child({i}) > div > a')
