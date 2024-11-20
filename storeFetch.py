@@ -20,7 +20,7 @@ def storeFetcher(storeLink, max_count=0):
             driver.get(link)
 
 
-            wait = WebDriverWait(driver, 10)  # Đợi tối đa 10 giây
+            wait = WebDriverWait(driver, 3)  # Đợi tối đa 3 giây
             page_html = driver.page_source
             soup = BeautifulSoup(page_html, 'html.parser')
             h1_tag = soup.find('h1', class_="DUwDvf lfPIob")
@@ -53,7 +53,7 @@ def storeFetcher(storeLink, max_count=0):
 
             
             phone = ""
-            WebDriverWait(driver, 10).until(
+            WebDriverWait(driver, 3).until(
                 EC.presence_of_all_elements_located((By.CLASS_NAME, "AeaXub"))
             )
             divPhone = driver.find_elements(By.CLASS_NAME, "AeaXub")
@@ -68,7 +68,6 @@ def storeFetcher(storeLink, max_count=0):
 
             # Lấy đánh giá
             rating = ""
-            ##################
             try:
                 rating = soup.select('div.fontBodyMedium.dmRWX > div.F7nice > :nth-child(1) > :nth-child(1)')[0].text
             except Exception as e:
@@ -77,7 +76,6 @@ def storeFetcher(storeLink, max_count=0):
             
             # Lấy giá trị Price
             priceRange = ""
-            #################
             for span in spans:
                 div = span.find_next_sibling('div')
                 if div:
@@ -99,7 +97,6 @@ def storeFetcher(storeLink, max_count=0):
             # Thêm dữ liệu vào crawlData
             crawlData.append(objDataEachLink)
             print(f"Data fetched for link {idx + 1}: {objDataEachLink}")
-            ###########################
             if (max_count > 0):
                 cnt += 1
                 if (cnt >= max_count): break
@@ -114,4 +111,3 @@ def storeFetcher(storeLink, max_count=0):
         print(data)
     return crawlData
            
-# storeFetcher(["https://www.google.com/maps/place/M%E1%BA%B8T+Vietnamese+restaurant+%26+Vegetarian+Food+3/@21.0341334,105.8512454,17z/data=!3m1!4b1!4m6!3m5!1s0x3135ab7f21065107:0x77777fbbc86b65f4!8m2!3d21.0341334!4d105.8512454!16s%2Fg%2F11ts3_jvc3?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI0MTExMy4xIKXMDSoASAFQAw%3D%3D"])
